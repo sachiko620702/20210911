@@ -196,7 +196,7 @@
             text.append('textPath')
                 .attr('startOffset','50%')
                 .attr('xlink:href', (_, i) => `#hiddenArc${i}` )
-                .text(d => d.data.name)
+                .text(d => d.data.name + '\nNT$' + formatNumber(d.value))
                 .style('fill', 'none')
                 .style('stroke', '#fff')
                 .style('stroke-width', 5)
