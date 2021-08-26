@@ -13,31 +13,47 @@
     {
      "name": "肉類",
      "children": [
-      {"name": "Converters", "size": 721},
-      {"name": "DelimitedTextConverter", "size": 4294},
-      {"name": "GraphMLConverter", "size": 9800},
-      {"name": "IDataConverter", "size": 1314},
-      {"name": "JSONConverter", "size": 2220}
+        {"name": "伊比利梅花豬", "size": 224},
+        {"name": "黑豬肉三層", "size": 140},
+        {"name": "黑豬鹹豬肉", "size": 140},
+        {"name": "帶骨牛小排", "size": 342},
+        {"name": "cab板腱牛排", "size": 337},
+        {"name": "牛橫隔膜", "size": 282},
+        {"name": "菲力牛排", "size": 0},
+        {"name": "無骨雞腿", "size": 94},
+        {"name": "波士頓龍蝦", "size": 1750},
+        {"name": "白帶魚串", "size": 262},
+        {"name": "2L生食級干貝", "size": 2300},
+        {"name": "蛤蜊", "size": 0}
      ]
     },
     {
     "name": "配料",
     "children": [
-        {"name": "Converters", "size": 721},
-        {"name": "DelimitedTextConverter", "size": 4294},
-        {"name": "GraphMLConverter", "size": 9800},
-        {"name": "IDataConverter", "size": 1314},
-        {"name": "JSONConverter", "size": 2220}
+        {"name": "白吐司", "size": 38},
+        {"name": "乳酪絲", "size": 143}
     ]
     },
     {
+        "name": "飲料",
+        "children": [
+            {"name": "古道百香綠茶2000ml", "size": 41},
+            {"name": "悅氏檸檬紅茶2000ml", "size": 30},
+            {"name": "悅氏健茶到油切綠無糖2000ml", "size": 30},
+            {"name": "可口可樂Zero 2L", "size": 32},
+            {"name": "可口可樂1250ml", "size": 30},
+            {"name": "雪碧汽水2L", "size": 32},
+            {"name": "黑松加鹽沙士2L", "size": 32},
+            {"name": "可爾必思乳酸菌飲料500ml", "size": 80}
+        ]
+        },
+    {
     "name": "蔬菜",
     "children": [
-        {"name": "Converters", "size": 721},
-        {"name": "DelimitedTextConverter", "size": 4294},
-        {"name": "GraphMLConverter", "size": 9800},
-        {"name": "IDataConverter", "size": 1314},
-        {"name": "JSONConverter", "size": 2220}
+        {"name": "三星蔥", "size": 80},
+        {"name": "泡菜", "size": 280},
+        {"name": "蘿蔓/美生菜", "size": 175},
+        {"name": "蔬菜當天傳統市場買", "size": 500}
     ]
     }
    ]
@@ -48,51 +64,44 @@
      {
      "name": "餐具",
      "children": [
-         {"name": "Converters", "size": 721},
-         {"name": "DelimitedTextConverter", "size": 4294},
-         {"name": "GraphMLConverter", "size": 9800},
-         {"name": "IDataConverter", "size": 1314},
-         {"name": "JSONConverter", "size": 2220}
+        {"name": "免洗筷", "size": 40},
+        {"name": "杯子", "size": 50},
+        {"name": "免洗碗", "size": 60},
+        {"name": "大免洗盤（公盤）", "size": 40},
+        {"name": "免洗紙盤", "size": 60}
      ]
      },
      {
         "name": "租用",
         "children": [
-            {"name": "Converters", "size": 721},
-            {"name": "DelimitedTextConverter", "size": 4294},
-            {"name": "GraphMLConverter", "size": 9800},
-            {"name": "IDataConverter", "size": 1314},
-            {"name": "JSONConverter", "size": 2220}
+            {"name": "租高腳烤肉架", "size": 250},
+            {"name": "瓦斯罐", "size": 50},
+            {"name": "租卡式瓦斯爐", "size": 150},
+            {"name": "露營桌椅", "size": 900}
         ]
     },
     {
     "name": "耗材",
     "children": [
-        {"name": "Converters", "size": 721},
-        {"name": "DelimitedTextConverter", "size": 4294},
-        {"name": "GraphMLConverter", "size": 9800},
-        {"name": "IDataConverter", "size": 1314},
-        {"name": "JSONConverter", "size": 2220}
+        {"name": "椰子碳", "size": 96},
+        {"name": "廚房紙巾", "size": 19},
+        {"name": "拋棄式毛巾", "size": 3},
+        {"name": "鋁箔紙", "size": 69}
     ]
     },
     {
     "name": "調味料",
     "children": [
-        {"name": "Converters", "size": 721},
-        {"name": "DelimitedTextConverter", "size": 4294},
-        {"name": "GraphMLConverter", "size": 9800},
-        {"name": "IDataConverter", "size": 1314},
-        {"name": "JSONConverter", "size": 2220}
+        {"name": "黑胡椒醬", "size": 48},
+        {"name": "無鹽奶油", "size": 118}
     ]
     },
     {
     "name": "其他",
     "children": [
-        {"name": "Converters", "size": 721},
-        {"name": "DelimitedTextConverter", "size": 4294},
-        {"name": "GraphMLConverter", "size": 9800},
-        {"name": "IDataConverter", "size": 1314},
-        {"name": "JSONConverter", "size": 2220}
+        {"name": "鋁箔餐盒", "size": 29},
+        {"name": "烤肉夾", "size": 40},
+        {"name": "烤肉刷", "size": 30}
     ]
     }
    ]
