@@ -29,6 +29,9 @@
     <script src='https://d3js.org/d3.v4.min.js'></script>
 </head>
 <body>
+    <p>345</p>
+    <chart></chart>
+    <p>125</p>
     <script>
         const width = window.innerWidth,
             height = window.innerHeight,
@@ -77,7 +80,7 @@
             return d.data.name.length * CHAR_SPACE < perimeter;
         };
 
-        const svg = d3.select('body').append('svg')
+        const svg = d3.select('chart').append('svg')
             .style('width', '100vw')
             .style('height', '100vh')
             .attr('viewBox', `${-width / 2} ${-height / 2} ${width} ${height}`)
