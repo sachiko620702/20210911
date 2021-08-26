@@ -105,8 +105,8 @@
     </table>
        
     <script>
-        const width = 600,
-            height = 600,
+        const width = window.innerHeight,
+            height = window.innerWidth,
             maxRadius = (Math.min(width, height) / 2) - 5;
 
         const formatNumber = d3.format(',d');
@@ -153,8 +153,8 @@
         };
 
         const svg = d3.select('chart').append('svg')
-            .style('width', '550px')
-            .style('height', '550px')
+            .style('width', '100vw')
+            .style('height', '100vw')
             .attr('viewBox', `${-width / 2} ${-height / 2} ${width} ${height}`)
             .on('click', () => focusOn()); // Reset zoom on canvas click
 
