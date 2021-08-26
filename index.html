@@ -1,4 +1,8 @@
+
+<!DOCTYPE html>
+<html>
 <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>不用懷疑就只是烤肉</title>
     <style>
         body {
@@ -27,218 +31,513 @@
         a {
             color: inherit;
         }
-</style>
-<link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+    </style>
     <script src='https://d3js.org/d3.v4.min.js'></script>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script type="text/javascript" src="//unpkg.com/vue"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/vue-ads-table-tree@latest/dist/vue-ads-table-tree.css">
+    <script type="text/javascript" src="https://unpkg.com/vue-ads-table-tree@latest/dist/vue-ads-table-tree.umd.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script type="text/javascript" src="https://unpkg.com/vue-ads-pagination@latest/dist/vue-ads-pagination.umd.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/vue-ads-pagination@latest/dist/vue-ads-pagination.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
+
 </head>
 <body>
     <div  style="text-align:center;"><chart></chart></div>
-    <table class="table table-striped" style="text-align:center;">
-          <tbody>
-            <tr>
-                <th colspan="4">小計</th>
-            </tr>
-            <tr class="table-primary">
-              <td >場地</td>
-              <td>NT$1,300</td>
-              <td>場地</td>
-              <td>NT$1,300</td>
-            </tr>
-            <tr class="table-success">
-              <td rowspan="5">用具</td>
-              <td rowspan="5">NT$2,052</td>
-              <td>用具-其他</td>
-              <td>NT$99</td>
-            </tr>
-            <tr class="table-success">
-                <td>用具-餐具</td>
-                <td>NT$250</td>
-            </tr>
-            <tr class="table-success">
-                <td>用具-租用</td>
-                <td>NT$1,350</td>
-            </tr>
-            <tr class="table-success">
-                <td>用具-調味料</td>
-                <td>NT$166</td>
-            </tr>
-            <tr class="table-success">
-                <td>用具-耗材</td>
-                <td>NT$187</td>
-            </tr>
-            <tr class="table-danger">
-                <td rowspan="5">食材</td>
-                <td rowspan="5">NT$7,394</td>
-                <td>食材-肉類</td>
-                <td>NT$5,871</td>
-              </tr>
-              <tr class="table-danger">
-                  <td>食材-配料</td>
-                  <td>NT$181</td>
-              </tr>
-              <tr class="table-danger">
-                  <td>食材-蔬菜</td>
-                  <td>NT$535</td>
-              </tr>
-              <tr class="table-danger">
-                  <td>食材-傳統市場</td>
-                  <td>NT$500</td>
-              </tr>
-              <tr class="table-danger">
-                  <td>食材-飲料</td>
-                  <td>NT$307</td>
-              </tr>
-              <tr class="table-info">
-                <td colspan="3">費用總計</td>
-                <td colspan="3">NT$10,746</td>
-              </tr>
-              <tr class="table-warning">
-                <td colspan="3">人數</td>
-                <td colspan="3">13</td>
-              </tr>
-              <tr class="table-dark">
-                <td colspan="3">平均費用</td>
-                <td colspan="3">NT$827</td>
-              </tr>
-          </tbody>
-    </table>
-       
-    <script>
-        const width = window.innerWidth,
-            height = window.innerHeight,
-            maxRadius = (Math.min(width, height) / 2) - 5;
+    <div id="app" class="m-6">
+    <div class="mb-6">
+        <vue-ads-table-tree
+            :columns="columns"
+            :rows="rows"
+            :filter="filterValue"
+            :page="page"
+            @filter-change="filterChanged"
+            @page-change="pageChanged"
+        >
+            <template
+                slot="項目"
+                slot-scope="props"
+            >
+                <a
+                   :href="`https://www.google.com/search?q=${props.row.項目}+${props.row.金額}`"
+                   target="_blank"
+                   >
+                    {{ props.row.項目 }}
+                </a>
+            </template>
+        </vue-ads-table-tree>   
+    </div>
+</div>
+<script>
+    const width = window.innerWidth,
+        height = window.innerHeight,
+        maxRadius = (Math.min(width, height) / 2) - 5;
 
-        const formatNumber = d3.format(',d');
+    const formatNumber = d3.format(',d');
 
-        const x = d3.scaleLinear()
-            .range([0, 2 * Math.PI])
-            .clamp(true);
+    const x = d3.scaleLinear()
+        .range([0, 2 * Math.PI])
+        .clamp(true);
 
-        const y = d3.scaleSqrt()
-            .range([maxRadius*.1, maxRadius]);
+    const y = d3.scaleSqrt()
+        .range([maxRadius*.1, maxRadius]);
 
-        const color = d3.scaleOrdinal(d3.schemeCategory20);
+    const color = d3.scaleOrdinal(d3.schemeCategory20);
 
-        const partition = d3.partition();
+    const partition = d3.partition();
 
-        const arc = d3.arc()
-            .startAngle(d => x(d.x0))
-            .endAngle(d => x(d.x1))
-            .innerRadius(d => Math.max(0, y(d.y0)))
-            .outerRadius(d => Math.max(0, y(d.y1)));
+    const arc = d3.arc()
+        .startAngle(d => x(d.x0))
+        .endAngle(d => x(d.x1))
+        .innerRadius(d => Math.max(0, y(d.y0)))
+        .outerRadius(d => Math.max(0, y(d.y1)));
 
-        const middleArcLine = d => {
-            const halfPi = Math.PI/2;
-            const angles = [x(d.x0) - halfPi, x(d.x1) - halfPi];
-            const r = Math.max(0, (y(d.y0) + y(d.y1)) / 2);
+    const middleArcLine = d => {
+        const halfPi = Math.PI/2;
+        const angles = [x(d.x0) - halfPi, x(d.x1) - halfPi];
+        const r = Math.max(0, (y(d.y0) + y(d.y1)) / 2);
 
-            const middleAngle = (angles[1] + angles[0]) / 2;
-            const invertDirection = middleAngle > 0 && middleAngle < Math.PI; // On lower quadrants write text ccw
-            if (invertDirection) { angles.reverse(); }
+        const middleAngle = (angles[1] + angles[0]) / 2;
+        const invertDirection = middleAngle > 0 && middleAngle < Math.PI; // On lower quadrants write text ccw
+        if (invertDirection) { angles.reverse(); }
 
-            const path = d3.path();
-            path.arc(0, 0, r, angles[0], angles[1], invertDirection);
-            return path.toString();
-        };
+        const path = d3.path();
+        path.arc(0, 0, r, angles[0], angles[1], invertDirection);
+        return path.toString();
+    };
 
-        const textFits = d => {
-            const CHAR_SPACE = 6;
+    const textFits = d => {
+        const CHAR_SPACE = 6;
 
-            const deltaAngle = x(d.x1) - x(d.x0);
-            const r = Math.max(0, (y(d.y0) + y(d.y1)) / 2);
-            const perimeter = r * deltaAngle;
+        const deltaAngle = x(d.x1) - x(d.x0);
+        const r = Math.max(0, (y(d.y0) + y(d.y1)) / 2);
+        const perimeter = r * deltaAngle;
 
-            return d.data.name.length * CHAR_SPACE < perimeter;
-        };
+        return d.data.name.length * CHAR_SPACE < perimeter;
+    };
 
-        const svg = d3.select('chart').append('svg')
-            .style('width', '100vw')
-            .style('height', '100vh')
-            .attr('viewBox', `${-width / 2} ${-height / 2} ${width} ${height}`)
-            .on('click', () => focusOn()); // Reset zoom on canvas click
+    const svg = d3.select('chart').append('svg')
+        .style('width', '100vw')
+        .style('height', '100vh')
+        .attr('viewBox', `${-width / 2} ${-height / 2} ${width} ${height}`)
+        .on('click', () => focusOn()); // Reset zoom on canvas click
 
-        d3.json('flare.json?t='+Math.random(), (error, root) => {
-            if (error) throw error;
+    d3.json('flare.json?t='+Math.random(), (error, root) => {
+        if (error) throw error;
 
-            root = d3.hierarchy(root);
-            root.sum(d => d.size);
+        root = d3.hierarchy(root);
+        root.sum(d => d.size);
 
-            const slice = svg.selectAll('g.slice')
-                .data(partition(root).descendants());
+        const slice = svg.selectAll('g.slice')
+            .data(partition(root).descendants());
 
-            slice.exit().remove();
+        slice.exit().remove();
 
-            const newSlice = slice.enter()
-                .append('g').attr('class', 'slice')
-                .on('click', d => {
-                    d3.event.stopPropagation();
-                    focusOn(d);
-                });
+        const newSlice = slice.enter()
+            .append('g').attr('class', 'slice')
+            .on('click', d => {
+                d3.event.stopPropagation();
+                focusOn(d);
+            });
 
-            newSlice.append('title')
-                .text(d => d.data.name + '\nNT$' + formatNumber(d.value));
+        newSlice.append('title')
+            .text(d => d.data.name + '\nNT$' + formatNumber(d.value));
 
-            newSlice.append('path')
-                .attr('class', 'main-arc')
-                .style('fill', d => color((d.children ? d : d.parent).data.name))
-                .attr('d', arc);
+        newSlice.append('path')
+            .attr('class', 'main-arc')
+            .style('fill', d => color((d.children ? d : d.parent).data.name))
+            .attr('d', arc);
 
-            newSlice.append('path')
-                .attr('class', 'hidden-arc')
-                .attr('id', (_, i) => `hiddenArc${i}`)
-                .attr('d', middleArcLine);
+        newSlice.append('path')
+            .attr('class', 'hidden-arc')
+            .attr('id', (_, i) => `hiddenArc${i}`)
+            .attr('d', middleArcLine);
 
-            const text = newSlice.append('text')
-                .attr('display', d => textFits(d) ? null : 'none');
+        const text = newSlice.append('text')
+            .attr('display', d => textFits(d) ? null : 'none');
 
-            // Add white contour
-            text.append('textPath')
-                .attr('startOffset','50%')
-                .attr('xlink:href', (_, i) => `#hiddenArc${i}` )
-                .text(d => d.data.name + '\n' + formatNumber(d.value))
-                .style('fill', 'none')
-                .style('stroke', '#fff')
-                .style('stroke-width', 5)
-                .style('stroke-linejoin', 'round');
+        // Add white contour
+        text.append('textPath')
+            .attr('startOffset','50%')
+            .attr('xlink:href', (_, i) => `#hiddenArc${i}` )
+            .text(d => d.data.name + '\n' + formatNumber(d.value))
+            .style('fill', 'none')
+            .style('stroke', '#fff')
+            .style('stroke-width', 5)
+            .style('stroke-linejoin', 'round');
 
-            text.append('textPath')
-                .attr('startOffset','50%')
-                .attr('xlink:href', (_, i) => `#hiddenArc${i}` )
-                .text(d => d.data.name + '\n' + formatNumber(d.value));
-        });
+        text.append('textPath')
+            .attr('startOffset','50%')
+            .attr('xlink:href', (_, i) => `#hiddenArc${i}` )
+            .text(d => d.data.name + '\n' + formatNumber(d.value));
+    });
 
-        function focusOn(d = { x0: 0, x1: 1, y0: 0, y1: 1 }) {
-            // Reset to top-level if no data point specified
+    function focusOn(d = { x0: 0, x1: 1, y0: 0, y1: 1 }) {
+        // Reset to top-level if no data point specified
 
-            const transition = svg.transition()
-                .duration(750)
-                .tween('scale', () => {
-                    const xd = d3.interpolate(x.domain(), [d.x0, d.x1]),
-                        yd = d3.interpolate(y.domain(), [d.y0, 1]);
-                    return t => { x.domain(xd(t)); y.domain(yd(t)); };
-                });
+        const transition = svg.transition()
+            .duration(750)
+            .tween('scale', () => {
+                const xd = d3.interpolate(x.domain(), [d.x0, d.x1]),
+                    yd = d3.interpolate(y.domain(), [d.y0, 1]);
+                return t => { x.domain(xd(t)); y.domain(yd(t)); };
+            });
 
-            transition.selectAll('path.main-arc')
-                .attrTween('d', d => () => arc(d));
+        transition.selectAll('path.main-arc')
+            .attrTween('d', d => () => arc(d));
 
-            transition.selectAll('path.hidden-arc')
-                .attrTween('d', d => () => middleArcLine(d));
+        transition.selectAll('path.hidden-arc')
+            .attrTween('d', d => () => middleArcLine(d));
 
-            transition.selectAll('text')
-                .attrTween('display', d => () => textFits(d) ? null : 'none');
+        transition.selectAll('text')
+            .attrTween('display', d => () => textFits(d) ? null : 'none');
 
-            moveStackToFront(d);
+        moveStackToFront(d);
 
-            //
+        //
 
-            function moveStackToFront(elD) {
-                svg.selectAll('.slice').filter(d => d === elD)
-                    .each(function(d) {
-                        this.parentNode.appendChild(this);
-                        if (d.parent) { moveStackToFront(d.parent); }
-                    })
-            }
+        function moveStackToFront(elD) {
+            svg.selectAll('.slice').filter(d => d === elD)
+                .each(function(d) {
+                    this.parentNode.appendChild(this);
+                    if (d.parent) { moveStackToFront(d.parent); }
+                })
         }
+    }
+</script>
+    <script type="text/javascript">//<![CDATA[
+
+
+const VueAdsTableTree = window["vue-ads-table-tree"].default;
+const VueAdsPagination = window["vue-ads-pagination"].default;
+const VueAdsPageButton = window["vue-ads-pagination"].VueAdsPageButton
+
+new Vue({
+    el: "#app",
+    
+    components: {
+       VueAdsTableTree,
+       VueAdsPagination,
+       VueAdsPageButton,
+    },
+    
+    data: {
+    	page: 0,
+        filter: '',
+        columns: [
+            {
+                property: '項目',
+                title: '項目',
+                direction: null,
+                filterable: true,
+                collapseIcon: true,
+            },
+            {
+                property: '金額',
+                title: '金額',
+                direction: null,
+                filterable: true,
+            },
+        ],
+        rows: [
+            {
+                項目: '場地租用',
+                金額: 'NT$1,300',
+            },
+            {
+                項目: '食材',
+                金額: 'NT$7,394',
+                _children: [
+                    {
+                        項目: '肉類',
+                        金額: 'NT$5,871',
+                        _children: [
+                        {
+                                項目: '伊比利梅花豬',
+                                金額: 'NT$224',
+                            },
+                            {
+                                項目: '黑豬肉三層',
+                                金額: 'NT$140',
+                            },
+                            {
+                                項目: '黑豬鹹豬肉',
+                                金額: 'NT$140',
+                            },
+                            {
+                                項目: '帶骨牛小排',
+                                金額: 'NT$342',
+                            },
+                            {
+                                項目: 'cab板腱牛排',
+                                金額: 'NT$337',
+                            },
+                            {
+                                項目: '牛橫隔膜',
+                                金額: 'NT$282',
+                            },
+                            {
+                                項目: '菲力牛排',
+                                金額: 'NT$0',
+                            },
+                            {
+                                項目: '無骨雞腿',
+                                金額: 'NT$94',
+                            },
+                            {
+                                項目: '波士頓龍蝦',
+                                金額: 'NT$1,750',
+                            },
+                            {
+                                項目: '白帶魚串',
+                                金額: 'NT$262',
+                            },
+                            {
+                                項目: '2L生食級干貝',
+                                金額: 'NT$2,300',
+                            },
+                            {
+                                項目: '蛤蜊',
+                                金額: 'NT$0',
+                            }
+                        ],
+                    },
+                    {
+                        項目: '配料',
+                        金額: 'NT$181',
+                        _children: [
+                        {
+                                項目: '白吐司',
+                                金額: 'NT$38',
+                            },
+                            {
+                                項目: '乳酪絲',
+                                金額: 'NT$143',
+                            },
+                        ],
+                    },
+                    {
+                        項目: '飲料',
+                        金額: 'NT$181',
+                        _children: [
+                        {
+                                項目: '古道百香綠茶2000ml',
+                                金額: 'NT$41',
+                            },
+                            {
+                                項目: '悅氏檸檬紅茶2000ml',
+                                金額: 'NT$30',
+                            },
+                            {
+                                項目: '悅氏健茶到油切綠無糖2000ml',
+                                金額: 'NT$30',
+                            },
+                            {
+                                項目: '可口可樂Zero 2L',
+                                金額: 'NT$32',
+                            },
+                            {
+                                項目: '可口可樂1250ml',
+                                金額: 'NT$30',
+                            },
+                            {
+                                項目: '雪碧汽水2L',
+                                金額: 'NT$32',
+                            },
+                            {
+                                項目: '黑松加鹽沙士2L',
+                                金額: 'NT$32',
+                            },
+                            {
+                                項目: '可爾必思乳酸菌飲料',
+                                金額: 'NT$80',
+                            },
+                        ],
+                    },
+                    {
+                        項目: '蔬菜',
+                        金額: 'NT$1,035',
+                        _children: [
+                        {
+                                項目: '三星蔥',
+                                金額: 'NT$80',
+                            },
+                            {
+                                項目: '泡菜',
+                                金額: 'NT$280',
+                            },
+                            {
+                                項目: '蘿蔓/美生菜',
+                                金額: 'NT$175',
+                            },
+                            {
+                                項目: '蔬菜當天傳統市場買',
+                                金額: 'NT$500',
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                項目: '用具',
+                金額: 'NT$2,052',
+                _children: [
+                    {
+                        項目: '餐具',
+                        金額: 'NT$250',
+                        _children: [
+                            {
+                                項目: '免洗筷',
+                                金額: 'NT$40',
+                            },
+                            {
+                                項目: '杯子',
+                                金額: 'NT$50',
+                            },
+                            {
+                                項目: '免洗碗',
+                                金額: 'NT$60',
+                            },
+                            {
+                                項目: '大免洗盤（公盤）',
+                                金額: 'NT$40',
+                            },
+                            {
+                                項目: '免洗紙盤',
+                                金額: 'NT$60',
+                            },
+                        ]
+                    },
+                    {
+                        項目: '租用',
+                        金額: 'NT$1,350',
+                        _children: [
+                            {
+                                項目: '租高腳烤肉架',
+                                金額: 'NT$250',
+                            },
+                            {
+                                項目: '瓦斯罐',
+                                金額: 'NT$50',
+                            },
+                            {
+                                項目: '租卡式瓦斯爐',
+                                金額: 'NT$150',
+                            },
+                            {
+                                項目: '露營桌椅',
+                                金額: 'NT$900',
+                            },
+                        ]
+                    },
+                    {
+                        項目: '耗材',
+                        金額: 'NT$187',
+                        _children: [
+                            {
+                                項目: '椰子碳',
+                                金額: 'NT$96',
+                            },
+                            {
+                                項目: '廚房紙巾',
+                                金額: 'NT$19',
+                            },
+                            {
+                                項目: '拋棄式毛巾',
+                                金額: 'NT$3',
+                            },
+                            {
+                                項目: '鋁箔紙',
+                                金額: 'NT$60',
+                            },
+                        ]
+                    },
+                    {
+                        項目: '調味料',
+                        金額: 'NT$166',
+                        _children: [
+                            {
+                                項目: '黑胡椒醬',
+                                金額: 'NT$48',
+                            },
+                            {
+                                項目: '無鹽奶油',
+                                金額: 'NT$118',
+                            },
+                        ]
+                    },
+                    {
+                        項目: '其他',
+                        金額: 'NT$99',
+                        _children: [
+                            {
+                                項目: '鋁箔餐盒',
+                                金額: 'NT$29',
+                            },
+                            {
+                                項目: '烤肉夾',
+                                金額: 'NT$40',
+                            },
+                            {
+                                項目: '烤肉刷',
+                                金額: 'NT$30',
+                            },
+                        ]
+                    },
+                ]
+            }
+        ],
+    },
+    
+    methods: {
+        filterChanged (filter) {
+            this.filter = filter;
+        },
+        
+        pageChanged (page) {
+            this.page = page;
+        },
+    },
+});
+
+
+  //]]></script>
+
+  <script>
+    // tell the embed parent frame the height of the content
+    if (window.parent && window.parent.parent){
+      window.parent.parent.postMessage(["resultsFrame", {
+        height: document.body.getBoundingClientRect().height,
+        slug: "7my8L42q"
+      }], "*")
+    }
+
+    // always overwrite window.name, in case users try to set it manually
+    window.name = "result"
+  </script>
+
+    <script>
+      let allLines = []
+
+      window.addEventListener("message", (message) => {
+        if (message.data.console){
+          let insert = document.querySelector("#insert")
+          allLines.push(message.data.console.payload)
+          insert.innerHTML = allLines.join(";\r")
+
+          let result = eval.call(null, message.data.console.payload)
+          if (result !== undefined){
+            console.log(result)
+          }
+        }
+      })
     </script>
+
 </body>
+</html>
