@@ -772,8 +772,8 @@
 	</div>
        <chart></chart>
     <script>
-        const width = "300px",
-            height = "300px",
+        const width = window.innerWidth,
+            height = window.innerHeight,
             maxRadius = (Math.min(width, height) / 2) - 5;
 
         const formatNumber = d3.format(',d');
