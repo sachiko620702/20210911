@@ -39,13 +39,11 @@
     </style>
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/vue-ads-table-tree@latest/dist/vue-ads-table-tree.css">
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/vue-ads-pagination@latest/dist/vue-ads-pagination.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
 
     <script src='https://d3js.org/d3.v4.min.js'></script>
     <script type="text/javascript" src="//unpkg.com/vue"></script>
     <script type="text/javascript" src="https://unpkg.com/vue-ads-table-tree@latest/dist/vue-ads-table-tree.umd.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/vue-ads-pagination@latest/dist/vue-ads-pagination.umd.js"></script>
 </head>
 <body>
     <div  style="text-align:center;"><chart></chart></div>
@@ -201,16 +199,12 @@
 
 
 const VueAdsTableTree = window["vue-ads-table-tree"].default;
-const VueAdsPagination = window["vue-ads-pagination"].default;
-const VueAdsPageButton = window["vue-ads-pagination"].VueAdsPageButton
 
 new Vue({
     el: "#app",
     
     components: {
        VueAdsTableTree,
-       VueAdsPagination,
-       VueAdsPageButton,
     },
     
     data: {
