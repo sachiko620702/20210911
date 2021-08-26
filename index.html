@@ -102,7 +102,7 @@
                 });
 
             newSlice.append('title')
-                .text(d => d.data.name + '\nNT$' + formatNumber(d.value) + '\n(' + d.parent + ')');
+                .text(d => d.data.name + '\nNT$' + formatNumber(d.value) + '\n(' + d.data.parent + ')');
 
             newSlice.append('path')
                 .attr('class', 'main-arc')
