@@ -45,14 +45,14 @@
             @page-change="pageChanged"
         >
             <template
-                slot="firstName"
+                slot="項目"
                 slot-scope="props"
             >
                 <a
-                   :href="`https://www.google.com/search?q=${props.row.firstName}+${props.row.lastName}`"
+                   :href="`https://www.google.com/search?q=${props.row.項目}+${props.row.金額}`"
                    target="_blank"
                    >
-                    {{ props.row.firstName }}
+                    {{ props.row.項目 }}
                 </a>
             </template>
         </vue-ads-table-tree>   
@@ -80,14 +80,14 @@ new Vue({
         filter: '',
         columns: [
             {
-                property: 'firstName',
-                title: 'First Name',
+                property: '項目',
+                title: '項目',
                 direction: null,
                 filterable: true,
             },
             {
-                property: 'lastName',
-                title: 'Last Name',
+                property: '金額',
+                title: '金額',
                 direction: null,
                 filterable: true,
                 collapseIcon: true,
@@ -95,86 +95,86 @@ new Vue({
         ],
         rows: [
             {
-                firstName: 'Josephine',
-                lastName: 'Astrid',
+                項目: 'Josephine',
+                金額: 'Astrid',
             },
             {
-                firstName: 'Boudewijn',
-                lastName: 'Van Brabandt',
+                項目: 'Boudewijn',
+                金額: 'Van Brabandt',
             },
             {
-                firstName: 'Albert II',
-                lastName: 'Van Belgie',
+                項目: 'Albert II',
+                金額: 'Van Belgie',
                 _children: [
                     {
-                        firstName: 'Filip',
-                        lastName: 'Van Belgie',
+                        項目: 'Filip',
+                        金額: 'Van Belgie',
                         _children: [
                             {
-                                firstName: 'Elisabeth',
-                                lastName: 'Van Brabant',
+                                項目: 'Elisabeth',
+                                金額: 'Van Brabant',
                             },
                             {
-                                firstName: 'Gabriel',
-                                lastName: 'Boudwijn',
+                                項目: 'Gabriel',
+                                金額: 'Boudwijn',
                             },
                             {
-                                firstName: 'Emmanuel',
-                                lastName: 'Van Belgie',
+                                項目: 'Emmanuel',
+                                金額: 'Van Belgie',
                             },
                             {
-                                firstName: 'Eleonore',
-                                lastName: 'Boudwijn',
+                                項目: 'Eleonore',
+                                金額: 'Boudwijn',
                                 _hasChildren: true,
                             },
                         ],
                     },
                     {
-                        firstName: 'Astrid',
-                        lastName: 'Van Belgie',
+                        項目: 'Astrid',
+                        金額: 'Van Belgie',
                     },
                     {
-                        firstName: 'Laurent',
-                        lastName: 'Van Belgie',
+                        項目: 'Laurent',
+                        金額: 'Van Belgie',
                     },
 
                 ],
             },
             {
-                firstName: 'Alexander',
-                lastName: 'Van Belgie',
+                項目: 'Alexander',
+                金額: 'Van Belgie',
             },
             {
-                firstName: 'Marie-Christine',
-                lastName: 'Leopoldine',
+                項目: 'Marie-Christine',
+                金額: 'Leopoldine',
             },
             {
-                firstName: 'Marie-Esmeralda',
-                lastName: 'Leopoldine',
+                項目: 'Marie-Esmeralda',
+                金額: 'Leopoldine',
             },
             {
-                firstName: 'Alexander',
-                lastName: 'Van Belgie',
+                項目: 'Alexander',
+                金額: 'Van Belgie',
             },
             {
-                firstName: 'Marie-Christine',
-                lastName: 'Leopoldine',
+                項目: 'Marie-Christine',
+                金額: 'Leopoldine',
             },
             {
-                firstName: 'Marie-Esmeralda',
-                lastName: 'Leopoldine',
+                項目: 'Marie-Esmeralda',
+                金額: 'Leopoldine',
             },
             {
-                firstName: 'Alexander',
-                lastName: 'Van Belgie',
+                項目: 'Alexander',
+                金額: 'Van Belgie',
             },
             {
-                firstName: 'Marie-Christine',
-                lastName: 'Leopoldine',
+                項目: 'Marie-Christine',
+                金額: 'Leopoldine',
             },
             {
-                firstName: 'Marie-Esmeralda',
-                lastName: 'Leopoldine',
+                項目: 'Marie-Esmeralda',
+                金額: 'Leopoldine',
             },
         ],
     },
