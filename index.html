@@ -844,8 +844,8 @@
         };
 
         const svg = d3.select('chart').append('svg')
-            .style('width', '100vw')
-            .style('height', '100vh')
+            .style('width', '300px')
+            .style('height', '300px')
             .attr('viewBox', `${-width / 2} ${-height / 2} ${width} ${height}`)
             .on('click', () => focusOn()); // Reset zoom on canvas click
 
