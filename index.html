@@ -1,76 +1,83 @@
+
+<!DOCTYPE html>
+<html>
 <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>不用懷疑就只是烤肉</title>
-<link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/vue-ads-table-tree@latest/dist/vue-ads-table-tree.css">
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
+    <script type="text/javascript" src="//unpkg.com/vue"></script>
+    <script type="text/javascript" src="https://unpkg.com/vue-ads-table-tree@latest/dist/vue-ads-table-tree.umd.js"></script>
 </head>
 <body>
-    <table class="table table-striped" style="text-align:center;">
-          <tbody>
-            <tr>
-                <th colspan="4">小計</th>
-            </tr>
-            <tr class="table-primary">
-              <td >場地</td>
-              <td>NT$1,300</td>
-              <td>場地</td>
-              <td>NT$1,300</td>
-            </tr>
-            <tr class="table-success">
-              <td rowspan="5">用具</td>
-              <td rowspan="5">NT$2,052</td>
-              <td>用具-其他</td>
-              <td>NT$99</td>
-            </tr>
-            <tr class="table-success">
-                <td>用具-餐具</td>
-                <td>NT$250</td>
-            </tr>
-            <tr class="table-success">
-                <td>用具-租用</td>
-                <td>NT$1,350</td>
-            </tr>
-            <tr class="table-success">
-                <td>用具-調味料</td>
-                <td>NT$166</td>
-            </tr>
-            <tr class="table-success">
-                <td>用具-耗材</td>
-                <td>NT$187</td>
-            </tr>
-            <tr class="table-danger">
-                <td rowspan="5">食材</td>
-                <td rowspan="5">NT$7,394</td>
-                <td>食材-肉類</td>
-                <td>NT$5,871</td>
-              </tr>
-              <tr class="table-danger">
-                  <td>食材-配料</td>
-                  <td>NT$181</td>
-              </tr>
-              <tr class="table-danger">
-                  <td>食材-蔬菜</td>
-                  <td>NT$535</td>
-              </tr>
-              <tr class="table-danger">
-                  <td>食材-傳統市場</td>
-                  <td>NT$500</td>
-              </tr>
-              <tr class="table-danger">
-                  <td>食材-飲料</td>
-                  <td>NT$307</td>
-              </tr>
-              <tr class="table-info">
-                <td colspan="3">費用總計</td>
-                <td colspan="3">NT$10,746</td>
-              </tr>
-              <tr class="table-warning">
-                <td colspan="3">人數</td>
-                <td colspan="3">13</td>
-              </tr>
-              <tr class="table-dark">
-                <td colspan="3">平均費用</td>
-                <td colspan="3">NT$827</td>
-              </tr>
-          </tbody>
-    </table>
-       
+    <div id="app" class="m-6">
+    <div class="mb-6">
+        <vue-ads-table-tree
+            :columns="columns"
+            :rows="rows"
+            :page="page"
+            @page-change="pageChanged"
+            :filter="filter"
+            @filter-change="filterChanged"
+        >
+        </vue-ads-table-tree>   
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+const VueAdsTableTree = window["vue-ads-table-tree"].default;
+
+new Vue({
+    el: "#app",
+    
+    components: {
+       VueAdsTableTree,
+    },
+    
+    data: {
+    	page: 0,
+        filter: '',
+        columns: [
+            {
+                property: '項目',
+                title: '項目',
+                direction: null,
+                collapseIcon: true,
+                filterable: true,
+            },
+            {
+                property: '金額',
+                title: '金額',
+                direction: null,
+            },
+        ],
+        rows: [],
+    },
+    
+    methods: {        
+        pageChanged (page) {
+            this.page = page;
+        },
+        filterChanged (filter) {
+            this.filter = filter;
+        },
+    },
+    mounted() {
+        fetch('./data.json')
+        .then(res => res.json())
+        .then(rows => this.rows = rows);
+    },
+});
+
+</script>
+
 </body>
+</html>
